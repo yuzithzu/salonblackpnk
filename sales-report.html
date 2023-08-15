@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,23 +14,21 @@
     background-color: black;
     color: pink;
   }
-  
-  /* Header Styles */
   .header {
     text-align: center;
     padding: 20px;
-    background-color: #FF69B4;
-    color: white;
+    background-color: pink;
+    color: black;
   }
   .header h1 {
     margin: 0;
     font-size: 2rem;
   }
-  
   /* Content Styles */
   .content {
     padding: 20px;
-    background-color: #1A1A1A;
+    background-color: black;
+    color: pink;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     margin: 20px;
@@ -42,13 +41,12 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #CCC;
+    border: 1px solid pink;
     border-radius: 5px;
   }
   .content button {
-    width: 100%;
     padding: 10px 20px;
-    background-color: #FF69B4;
+    background-color: pink;
     color: black;
     border: none;
     border-radius: 5px;
@@ -58,169 +56,199 @@
     margin-top: 10px;
   }
   .content button:hover {
-    background-color: #FFC0CB;
+    background-color: #FF66CC;
   }
   .result {
     margin-top: 10px;
     font-size: 1.2rem;
   }
-  
   /* Table Styles */
   table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    color: pink;
   }
   th, td {
     padding: 8px;
     border-bottom: 1px solid #ddd;
     text-align: left;
   }
+  /* Add animation to auto-hide content */
+  .content.fade-out {
+    animation: fadeOut 5s forwards;
+  }
+
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+  }
 </style>
-<script>
-  // Global variable to store data
-  const salesData = [];
-
-  // Function to calculate profit
-  function calculateProfit() {
-    const salesInput = parseFloat(document.getElementById('salesInput').value);
-    const expensesInput = parseFloat(document.getElementById('expensesInput').value);
-    const dateInput = document.getElementById('dateInput').value;
-
-    const profit = salesInput - expensesInput;
-    const resultElement = document.getElementById('result');
-    resultElement.innerHTML = `Profit for ${dateInput}: PHP${profit.toFixed(2)}`;
-    salesData.push({ date: dateInput, profit });
-  }
-
-  // Function to generate daily report
-  function generateDailyReport() {
-    const reportTable = document.getElementById('reportTable');
-    let html = `
-      <table>
-        <tr>
-          <th>Date</th>
-          <th>Profit</th>
-        </tr>`;
-    for (const entry of salesData) {
-      html += `
-        <tr>
-          <td>${entry.date}</td>
-          <td>PHP${entry.profit.toFixed(2)}</td>
-        </tr>`;
-    }
-    html += '</table>';
-    reportTable.innerHTML = html;
-  }
-
-  // Function to generate monthly sales
-  function generateMonthlySales() {
-    const monthlySales = {};
-    for (const entry of salesData) {
-      const [year, month] = entry.date.split('-');
-      const key = `${year}-${month}`;
-      if (!monthlySales[key]) {
-        monthlySales[key] = 0;
-      }
-      monthlySales[key] += entry.profit;
-    }
-
-    const reportTable = document.getElementById('reportTable');
-    let html = `
-      <table>
-        <tr>
-          <th>Month</th>
-          <th>Total Profit</th>
-        </tr>`;
-    for (const key of Object.keys(monthlySales)) {
-      html += `
-        <tr>
-          <td>${key}</td>
-          <td>PHP${monthlySales[key].toFixed(2)}</td>
-        </tr>`;
-    }
-    html += '</table>';
-    reportTable.innerHTML = html;
-  }
-
-  // Function to generate yearly sales
-  function generateYearlySales() {
-    const yearlySales = {};
-    for (const entry of salesData) {
-      const [year] = entry.date.split('-');
-      if (!yearlySales[year]) {
-        yearlySales[year] = 0;
-      }
-      yearlySales[year] += entry.profit;
-    }
-
-    const reportTable = document.getElementById('reportTable');
-    let html = `
-      <table>
-        <tr>
-          <th>Year</th>
-          <th>Total Profit</th>
-        </tr>`;
-    for (const key of Object.keys(yearlySales)) {
-      html += `
-        <tr>
-          <td>${key}</td>
-          <td>PHP${yearlySales[key].toFixed(2)}</td>
-        </tr>`;
-    }
-    html += '</table>';
-    reportTable.innerHTML = html;
-  }
-
-  // Function to erase data
-  function eraseData() {
-    const eraseSelect = document.getElementById('eraseSelect');
-    const selectedValue = eraseSelect.value;
-
-    if (selectedValue === 'daily') {
-      // Erase daily report
-      document.getElementById('reportTable').innerHTML = '';
-    } else if (selectedValue === 'monthly') {
-      // Erase monthly sales
-      // ... (your code to erase monthly sales data)
-    } else if (selectedValue === 'yearly') {
-      // Erase yearly sales
-      // ... (your code to erase yearly sales data)
-    }
-  }
-</script>
 </head>
 <body>
   <div class="header">
-    <h1>Sales Report</h1>
+    <h1>Sales Report Application</h1>
   </div>
   <div class="content">
-    <form>
-      <label for="dateInput">Date:</label>
-      <input type="date" id="dateInput">
-      <label for="salesInput">Sales:</label>
-      <input type="number" id="salesInput" step="0.01">
-      <label for="expensesInput">Expenses:</label>
-      <input type="number" id="expensesInput" step="0.01">
-      <button type="button" id="calculateButton" onclick="calculateProfit()">Calculate</button>
-    </form>
+    <label for="salesInput">Sales Amount:</label>
+    <input type="number" id="salesInput" placeholder="Enter sales amount" required>
+    <label for="expensesInput">Expenses:</label>
+    <input type="number" id="expensesInput" placeholder="Enter expenses" required>
+    <label for="dateInput">Date:</label>
+    <input type="date" id="dateInput" required>
+    <button onclick="calculateProfit()">Calculate Profit</button>
     <div class="result" id="result"></div>
   </div>
   <div class="content">
-    <button class="report-button" id="dailyReportButton" onclick="generateDailyReport()">Daily Report</button>
-    <button class="report-button" id="monthlySalesButton" onclick="generateMonthlySales()">Monthly Sales</button>
-    <button class="report-button" id="yearlySalesButton" onclick="generateYearlySales()">Yearly Sales</button>
-    <div id="reportTable"></div>
+    <h2>Daily Sales Report</h2>
+    <button onclick="eraseDailyReport()">Erase</button>
+    <div id="dailyReportTable"></div>
   </div>
   <div class="content">
-    <label for="eraseSelect">Select data to erase:</label>
-    <select id="eraseSelect">
-      <option value="daily">Daily Report</option>
-      <option value="monthly">Monthly Sales</option>
-      <option value="yearly">Yearly Sales</option>
-    </select>
-    <button class="erase-button" id="eraseDataButton" onclick="eraseData()">Erase Data</button>
+    <h2>Monthly Sales Report</h2>
+    <button onclick="eraseMonthlyReport()">Erase</button>
+    <div id="monthlyReportTable"></div>
   </div>
+  <div class="content">
+    <h2>Yearly Sales Report</h2>
+    <button onclick="eraseYearlyReport()">Erase</button>
+    <div id="yearlyReportTable"></div>
+  </div>
+
+  <script>
+    // Global variables to store data
+    const dailySalesData = [];
+    
+    // Function to calculate profit
+    function calculateProfit() {
+      const salesInput = parseFloat(document.getElementById('salesInput').value);
+      const expensesInput = parseFloat(document.getElementById('expensesInput').value);
+      const dateInput = document.getElementById('dateInput').value;
+
+      const profit = salesInput - expensesInput;
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = `Profit for ${dateInput}: PHP${profit.toFixed(2)}`;
+      dailySalesData.push({ date: dateInput, profit });
+
+      generateDailyReport();
+      generateMonthlySales();
+      generateYearlySales();
+    }
+
+    // Function to generate daily report
+    function generateDailyReport() {
+      const reportTable = document.getElementById('dailyReportTable');
+      let html = `
+        <table>
+          <tr>
+            <th>Date</th>
+            <th>Profit</th>
+          </tr>`;
+      for (const entry of dailySalesData) {
+        html += `
+          <tr>
+            <td>${entry.date}</td>
+            <td>PHP${entry.profit.toFixed(2)}</td>
+          </tr>`;
+      }
+      html += '</table>';
+      reportTable.innerHTML = html;
+    }
+
+    // Function to generate monthly sales
+    function generateMonthlySales() {
+      const monthlySales = {};
+      for (const entry of dailySalesData) {
+        const [year, month] = entry.date.split('-');
+        const key = `${year}-${month}`;
+        if (!monthlySales[key]) {
+          monthlySales[key] = 0;
+        }
+        monthlySales[key] += entry.profit;
+      }
+
+      const reportTable = document.getElementById('monthlyReportTable');
+      let html = `
+        <table>
+          <tr>
+            <th>Month</th>
+            <th>Total Profit</th>
+          </tr>`;
+      for (const key of Object.keys(monthlySales)) {
+        html += `
+          <tr>
+            <td>${key}</td>
+            <td>PHP${monthlySales[key].toFixed(2)}</td>
+          </tr>`;
+      }
+      html += '</table>';
+      reportTable.innerHTML = html;
+    }
+
+    // Function to generate yearly sales
+    function generateYearlySales() {
+      const yearlySales = {};
+      for (const entry of dailySalesData) {
+        const [year] = entry.date.split('-');
+        if (!yearlySales[year]) {
+          yearlySales[year] = 0;
+        }
+        yearlySales[year] += entry.profit;
+      }
+
+      const reportTable = document.getElementById('yearlyReportTable');
+      let html = `
+        <table>
+          <tr>
+            <th>Year</th>
+            <th>Total Profit</th>
+          </tr>`;
+      for (const key of Object.keys(yearlySales)) {
+        html += `
+          <tr>
+            <td>${key}</td>
+            <td>PHP${yearlySales[key].toFixed(2)}</td>
+          </tr>`;
+      }
+      html += '</table>';
+      reportTable.innerHTML = html;
+    }
+
+    // Function to erase daily report
+    function eraseDailyReport() {
+      dailySalesData.length = 0; // Clear the array
+      generateDailyReport(); // Update the report
+    }
+
+    // Function to erase monthly report
+    function eraseMonthlyReport() {
+      dailySalesData.length = 0; // Clear the array
+      generateMonthlySales(); // Update the report
+    }
+
+    // Function to erase yearly report
+    function eraseYearlyReport() {
+      dailySalesData.length = 0; // Clear the array
+      generateYearlySales(); // Update the report
+    }
+
+    // Function to auto-hide report sections after a delay
+    function autoHideContent(elementId) {
+      const element = document.getElementById(elementId);
+      element.classList.add('fade-out');
+    }
+
+    // Auto-hide report sections after a delay
+    setTimeout(() => {
+      autoHideContent('dailyReportTable');
+    }, 5000); // 5 seconds
+
+    setTimeout(() => {
+      autoHideContent('monthlyReportTable');
+    }, 10000); // 10 seconds
+
+    setTimeout(() => {
+      autoHideContent('yearlyReportTable');
+    }, 15000); // 15 seconds
+  </script>
 </body>
 </html>
