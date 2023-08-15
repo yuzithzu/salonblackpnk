@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salon Black Pnk - Welcome</title>
+<style>
+  /* Global Styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  /* Content Styles */
+  .content {
+    text-align: center;
+    padding: 20px;
+  }
+  .content h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #000000; /* Black text color */
+  }
+  .content button {
+    padding: 10px 20px;
+    background-color: #FF66C4; /* Pink background color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .content button:hover {
+    background-color: #FF3385; /* Darker pink on hover */
+  }
+</style>
+</head>
+<body>
+  <div class="content">
+    <h1>Welcome to Salon Black Pink</h1>
+    <button onclick="navigateToSalesReport()">Start</button>
+  </div>
+
+  <script>
+    function navigateToSalesReport() {
+      window.location.href = 'sales-report.html'; // Replace with the actual filename of your sales report page
+    }
+  </script>
+</body>
+</html>
